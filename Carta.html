@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Amor</title>
+
+    <!-- Estilos para que se vea como una carta -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            text-align: center;
+        }
+        .container-fluid {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .page {
+            padding: 30px;
+            line-height: 1.8;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .story-image img {
+            max-width: 100%;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .download-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid book-container">
+        <!-- Página 1 -->
+        <div class="page" id="page1">
+            <h2>Mi querido amor</h2>
+            <p id="letter-content">
+                Holaaa mi flaquito lindo, hoy celebramos un hermoso año juntos. Sé que no ha sido nada fácil, sobre todo en estos últimos días. Sin embargo, los momentos difíciles nunca podrán apagar la belleza de lo que tenemos. Estoy segura de que todo esto lo podremos superar, y ya verás que nada de lo que se nos ponga enfrente será tan fuerte como nuestro amor. Confío plenamente en que ambos nos amamos y en que juntos podremos con todo, con lo que venga, porque estaremos bien. Quiero que sepas lo mucho que te amo, no tienes idea de lo feliz que me hace querer estar contigo para siempre. Y esa bebé que te prometí… no sabes cuánto deseo y anhelo que eso se haga realidad. Sé que seremos unos grandes papás, pase lo que pase, nunca nos rendiremos.
+                <br><br>
+                Quiero que cumplamos juntos todos nuestros sueños y metas. Yo quiero ser la madre de tus hijos, quiero que estés en el día más importante de mi vida: el día de mi graduación. Quiero que celebremos todo, nos veamos, nos riamos, y que siempre, sin importar nada, estemos juntos. Porque sé que nosotros no somos como cualquier otra pareja. Si nos esforzamos, podemos con todo. Amo tanto pasar mi tiempo contigo, es lo que más me llena de felicidad. Hablar contigo es lo mejor de mi día, y mi día favorito de la semana es cuando nos vemos. No sabes cuánto amo esos momentos.
+                <br><br>
+                Sé que mis palabras no son suficientes para describir todo el amor que siento por ti, pero créeme, es más grande que cualquier palabra que pueda decir. Me voy a quedar a tu lado, aunque sea difícil. Siempre te apoyaré, y sobre todo, estaré tan orgullosa del gran hombre que eres y en el que te estás convirtiendo. Eres increíblemente capaz, y lo que lograrás será asombroso, ya lo verás. Te lo dije el otro día, llegarás tan lejos, mi amor. No importa cuán difícil sea el camino, estaré a tu lado para apoyarte siempre. Pase lo que pase, estaré.
+                <br><br>
+                Sé que estos momentos difíciles pasarán, y confío en que lo superaremos juntos. No sé qué nos deparará el futuro, pero sé que mi amor por ti jamás cambiará. Tú y yo somos un equipo, y juntos, no hay nada que no podamos superar. No te preocupes, mi vida, todo va a estar bien. Eres y serás lo mejor que me ha pasado. Así que recuerda: no te librarás de mí tan fácil, y yo no quiero librarme de ti. Ya te lo dije, mi amor, no me voy de tu vida, te lo juro. Ya verás, mi vida.
+            </p>
+            <div class="story-image">
+                <img src="/IMG/Foto13.jpg" alt="Imagen 1">
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para descargar como PDF -->
+    <button class="download-btn" onclick="downloadPDF()">Descargar Carta</button>
+
+    <!-- Script para generar el PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Título
+            doc.setFont("Comoforta", "bold", 12);
+            doc.text("Mi querido amor", 20, 30);
+
+            // Contenido largo de la carta
+            const content = document.getElementById("letter-content").innerText;
+
+            // Añadir texto, manejando saltos de página si es necesario
+            let y = 40;
+            doc.setFont("Comoforta", "", 10);
+            const lines = doc.splitTextToSize(content, 180); // Ajustar el texto
+            for (let i = 0; i < lines.length; i++) {
+                if (y > 250) {
+                    doc.addPage();
+                    y = 20;
+                }
+                doc.text(lines[i], 20, y);
+                y += 10;
+            }
+
+            // Añadir imagen si la ruta es correcta
+            doc.addImage('/IMG/Foto13.jpg', 'JPEG', 20, y + 10, 170, 90);
+
+            // Descargar PDF
+            doc.save('Para_mi_MAU.pdf');
+        }
+    </script>
+
+</body>
+</html>
